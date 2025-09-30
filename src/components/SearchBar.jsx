@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Searching for:', query);
-    // We'll implement search functionality next
+    if (query.trim()) {
+      onSearch(query);
+    }
+  };
+
+  const handleClear = () => {
+    setQuery('');
+    onSearch('');
   };
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Search for movies..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <div className="search-input-container">
+        <input
+          type="text"
+          placeholder="Search for movies..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        {query && (
+          <button type="button" className="clear-btn" onClick={handleClear}>
+            ✕
+          </button>
+        )}
+      </div>
       <button type="submit">Search</button>
     </form>
   );
