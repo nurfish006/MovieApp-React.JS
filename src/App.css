@@ -79,9 +79,10 @@ body {
 /* Movie List Styles */
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   margin-top: 2rem;
+  width: 100%;
 }
 
 /* Movie Card Styles */
@@ -274,9 +275,5 @@ body {
   .search-bar input {
     width: 100%;
     max-width: 300px;
-  }
-  
-  .movie-list {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
