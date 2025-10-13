@@ -19,7 +19,7 @@ A modern, responsive React application for discovering movies built with modern 
 
 ## 🚀 Live Demo
 
-*MovieApp.vercel.app*
+https://my-movie-hub-montage.vercel.app/
 
 ## 🛠️ Technologies Used
 
