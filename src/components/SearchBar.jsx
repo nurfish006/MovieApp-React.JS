@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (query.trim()) {
-      onSearch(query);
-    }
-  };
+  useEffect(() => {
+    onSearch(query);
+  }, [query, onSearch]);
 
   const handleClear = () => {
     setQuery('');
-    onSearch('');
   };
 
   return (
-    <form className="search-bar" onSubmit={handleSubmit}>
+    <div className="search-bar">
       <div className="search-input-container">
         <input
           type="text"
@@ -30,8 +26,7 @@ const SearchBar = ({ onSearch }) => {
           </button>
         )}
       </div>
-      <button type="submit">Search</button>
-    </form>
+    </div>
   );
 };
 
