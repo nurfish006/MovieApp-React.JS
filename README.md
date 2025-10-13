@@ -2,7 +2,7 @@
 
 A modern, responsive React application for discovering movies built with modern React patterns and best practices.
 
-![React](https://img.shields.io/badge/React-18.2.0-blue)
+![React](https://img.shields.io/badge/React-19.1.0-blue)
 ![TMDB API](https://img.shields.io/badge/TMDB-API-green)
 ![Responsive](https://img.shields.io/badge/Design-Responsive-orange)
 
@@ -24,7 +24,7 @@ A modern, responsive React application for discovering movies built with modern 
 ## 🛠️ Technologies Used
 
 ### **Core Technologies**
-- ⚛️ **React 18** - Modern React with hooks
+- ⚛️ **React 19** - Modern React with hooks
 - 🎨 **CSS3** - Custom responsive design
 - 🔄 **Context API** - State management
 - 🌐 **REST API** - TMDB movie database
