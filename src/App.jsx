@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
@@ -10,7 +10,7 @@ import ErrorMessage from './components/ErrorMessage';
 import MovieModal from './components/MovieModal';
 import { searchMovies, getPopularMovies, getMovieDetails } from './services/movieApi';
 import { FavoritesProvider } from './context/FavoritesContext';
-import useDebounce from './hooks/useDebounce';
+import {useDebounce} from './hooks/useDebounce';
 
 function MovieApp() {
   const [movies, setMovies] = useState([]);
@@ -197,11 +197,11 @@ function MovieApp() {
 // Wrap with Error Boundary and Context Providers
 function App() {
   return (
-    <ErrorBoundary>
+    
       <FavoritesProvider>
         <MovieApp />
       </FavoritesProvider>
-    </ErrorBoundary>
+
   );
 }
 
