@@ -3,13 +3,16 @@ import './App.css';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import MovieList from './components/MovieList';
+import MovieFilters from './components/MovieFilters';
+import FavoritesPage from './components/FavoritesPage';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorMessage from './components/ErrorMessage';
 import MovieModal from './components/MovieModal';
 import { searchMovies, getPopularMovies, getMovieDetails } from './services/movieApi';
+import { FavoritesProvider } from './context/FavoritesContext';
 import useDebounce from './hooks/useDebounce';
 
-function App() {
+function MovieApp() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -20,22 +23,30 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
+  const [activeTab, setActiveTab] = useState('discover');
+  const [filters, setFilters] = useState({
+    genres: [],
+    year: '',
+    minRating: 0
+  });
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   // Load popular movies when app starts
   useEffect(() => {
-    loadPopularMovies();
-  }, []);
+    if (activeTab === 'discover') {
+      loadPopularMovies();
+    }
+  }, [activeTab]);
 
   // Handle debounced search
   useEffect(() => {
-    if (debouncedSearchQuery) {
+    if (debouncedSearchQuery && activeTab === 'discover') {
       handleSearch(debouncedSearchQuery, 1);
-    } else if (debouncedSearchQuery === '') {
+    } else if (debouncedSearchQuery === '' && activeTab === 'discover') {
       loadPopularMovies();
     }
-  }, [debouncedSearchQuery]);
+  }, [debouncedSearchQuery, activeTab]);
 
   const loadPopularMovies = async (page = 1) => {
     if (page === 1) setLoading(true);
@@ -106,7 +117,7 @@ function App() {
       setMovieDetails(details);
     } catch (err) {
       console.error('Failed to load movie details:', err);
-      setMovieDetails(movie); // Fallback to basic movie info
+      setMovieDetails(movie);
     }
   };
 
@@ -116,28 +127,63 @@ function App() {
     setMovieDetails(null);
   };
 
-  const hasMore = currentPage < totalPages;
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    // In a real app, you'd apply these filters to the API call
+    console.log('Filters applied:', newFilters);
+  };
+
+  const hasMore = currentPage < totalPages && activeTab === 'discover';
 
   return (
     <div className="App">
       <Header />
-      <SearchBar onSearch={setSearchQuery} />
       
-      {loading && <LoadingSpinner />}
-      {error && (
-        <ErrorMessage 
-          message={error} 
-          onRetry={() => searchQuery ? handleSearch(searchQuery) : loadPopularMovies()} 
-        />
+      {/* Navigation Tabs */}
+      <div className="app-tabs">
+        <button 
+          className={`tab ${activeTab === 'discover' ? 'active' : ''}`}
+          onClick={() => setActiveTab('discover')}
+        >
+          🎬 Discover
+        </button>
+        <button 
+          className={`tab ${activeTab === 'favorites' ? 'active' : ''}`}
+          onClick={() => setActiveTab('favorites')}
+        >
+          ❤️ Favorites
+        </button>
+      </div>
+
+      {activeTab === 'discover' && (
+        <>
+          <SearchBar onSearch={setSearchQuery} />
+          <MovieFilters 
+            onFilterChange={handleFilterChange} 
+            currentFilters={filters}
+          />
+          
+          {loading && <LoadingSpinner />}
+          {error && (
+            <ErrorMessage 
+              message={error} 
+              onRetry={() => searchQuery ? handleSearch(searchQuery) : loadPopularMovies()} 
+            />
+          )}
+          
+          <MovieList 
+            movies={movies}
+            onMovieClick={handleMovieClick}
+            hasMore={hasMore}
+            onLoadMore={handleLoadMore}
+            loadingMore={loadingMore}
+          />
+        </>
       )}
-      
-      <MovieList 
-        movies={movies}
-        onMovieClick={handleMovieClick}
-        hasMore={hasMore}
-        onLoadMore={handleLoadMore}
-        loadingMore={loadingMore}
-      />
+
+      {activeTab === 'favorites' && (
+        <FavoritesPage onMovieClick={handleMovieClick} />
+      )}
 
       <MovieModal 
         movie={movieDetails || selectedMovie}
@@ -145,6 +191,17 @@ function App() {
         onClose={closeModal}
       />
     </div>
+  );
+}
+
+// Wrap with Error Boundary and Context Providers
+function App() {
+  return (
+    <ErrorBoundary>
+      <FavoritesProvider>
+        <MovieApp />
+      </FavoritesProvider>
+    </ErrorBoundary>
   );
 }
 

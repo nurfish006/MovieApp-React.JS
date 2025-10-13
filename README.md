@@ -1,18 +1,50 @@
-# React + Vite
+# 🎬 Movie Search App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive React application for discovering movies built with modern React patterns and best practices.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18.2.0-blue)
+![TMDB API](https://img.shields.io/badge/TMDB-API-green)
+![Responsive](https://img.shields.io/badge/Design-Responsive-orange)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **🔍 Advanced Search** - Real-time search with debouncing
+- **🎭 Movie Discovery** - Browse popular and trending movies
+- **❤️ Favorites System** - Save movies with local storage persistence
+- **🎛️ Smart Filtering** - Filter by genre, year, and rating
+- **📱 Responsive Design** - Works perfectly on all devices
+- **⚡ Performance Optimized** - Efficient rendering and API calls
+- **🛡️ Error Handling** - Graceful error states and recovery
+- **🎨 Modern UI** - Beautiful dark theme with smooth animations
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🚀 Live Demo
 
-Note: This will impact Vite dev & build performances.
+*MovieApp.vercel.app*
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### **Core Technologies**
+- ⚛️ **React 18** - Modern React with hooks
+- 🎨 **CSS3** - Custom responsive design
+- 🔄 **Context API** - State management
+- 🌐 **REST API** - TMDB movie database
+
+### **React Concepts Mastered**
+- ✅ Functional Components
+- ✅ Hooks (useState, useEffect, useContext, custom hooks)
+- ✅ Component Composition
+- ✅ Props and State Management
+- ✅ Event Handling
+- ✅ Conditional Rendering
+- ✅ Lists and Keys
+- ✅ Forms and Controlled Components
+- ✅ API Integration
+- ✅ Error Boundaries
+- ✅ Performance Optimization
+
+## 📦 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/nurfish006/MovieApp-React.JS.git
+   cd MovieApp-React.JS

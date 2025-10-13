@@ -1,7 +1,20 @@
 import React from 'react';
+import { useFavorites } from '../context/FavoritesContext';
 
 const MovieModal = ({ movie, isOpen, onClose }) => {
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  
   if (!isOpen || !movie) return null;
+
+  const favorite = isFavorite(movie.id);
+
+  const handleFavoriteClick = () => {
+    if (favorite) {
+      removeFromFavorites(movie.id);
+    } else {
+      addToFavorites(movie);
+    }
+  };
 
   const posterUrl = movie.poster_path 
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -22,6 +35,12 @@ const MovieModal = ({ movie, isOpen, onClose }) => {
         >
           <div className="modal-poster">
             <img src={posterUrl} alt={movie.title} />
+            <button 
+              className={`modal-favorite-btn ${favorite ? 'favorited' : ''}`}
+              onClick={handleFavoriteClick}
+            >
+              {favorite ? '❤️ Remove from Favorites' : '🤍 Add to Favorites'}
+            </button>
           </div>
           <div className="modal-header-info">
             <h2>{movie.title}</h2>
